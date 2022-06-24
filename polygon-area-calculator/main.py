@@ -3,9 +3,9 @@ import shape_calculator
 from unittest import main
 
 
-rect = shape_calculator.Rectangle(10, 5)
+rect = shape_calculator.Rectangle(5, 10)
 print(rect.get_area())
-rect.set_height(3)
+rect.set_width(3)
 print(rect.get_perimeter())
 print(rect)
 
