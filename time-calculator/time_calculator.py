@@ -1,10 +1,36 @@
-def add_time(start, duration):
+def add_time(start, duration,Dname=""):
+  day_name = ['sunday',"monday","tuesday","wednesday",'thursday','friday','saturday']
+  start = start.split(" ") 
+  h,m = start[0].split(":")
+ 
+  isAm = True if start[1] == 'AM' else False
+  duration = duration.split(":")
+  aH,aM = duration[0],duration[1]
+  rH,rM = int(h) + int(aH), int(m) + int(aM)
+  rD = 0
+  while (rM > 60):
+    rM -= 60
+    rH += 1
+  while rH > 12:
+    rH -= 12
+    if isAm:
+      isAm = False
+    else:
+      isAm = True
+      rD += 1
+  if rH == 12:
+    if isAm:
+      isAm = False
+    else:
+      isAm = True
+      rD += 1
+  time_txt = '{}:{} {}'.format(rH,str(rM).zfill(2),"AM" if isAm else "PM")
+  if Dname != "":
+    index = day_name.index(Dname.lower())
+    time_txt += ', {}'.format(day_name[(index + rD)% 7].capitalize())
+  if rD == 1:
+    time_txt += " (next day)"
+  elif rD != 1 and rD != 0:
+    time_txt += " ({} days later)".format(rD)
+  return time_txt
   
-  return new_time
-
-print(add_time("3:00 PM", "3:10"))
-print(add_time("11:30 AM", "2:32"))
-print(add_time("11:43 AM", "00:20"))
-print(add_time("10:10 PM", "3:30"))
-print(add_time("11:43 PM", "24:20"))
-print(add_time("6:30 PM", "205:12"))
